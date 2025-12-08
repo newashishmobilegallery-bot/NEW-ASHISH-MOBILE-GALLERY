@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechHub Mobile Shop - Premium Phones & Finance Options</title>
+    <style>
+        :root {
+            --color-primary: #1e40af;
+            --color-primary-light: #3b82f6;
+            --color-primary-dark: #1e3a8a;
+            --color-accent: #f59e0b;
+            --color-success: #10b981;
+            --color-text: #1f2937;
+            --color-text-light: #6b7280;
+            --color-bg: #f9fafb;
+            --color-white: #ffffff;
+            --color-border: #e5e7eb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: var(--color-white);
+            padding: 1.5rem 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-tab {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: var(--color-white);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tab.active {
+            background: var(--color-accent);
+            color: var(--color-white);
+        }
+
+        .nav-tab:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: var(--color-white);
+            padding: 3rem 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-button {
+            background: var(--color-accent);
+            color: var(--color-white);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            background: #d97706;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .product-card {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--color-white);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-spec {
+            font-size: 0.85rem;
+            color: var(--color-text-light);
+            margin-bottom: 0.75rem;
+        }
+
+        .price-range {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .mrp {
+            font-size: 0.85rem;
+            color: var(--color-text-light);
+            text-decoration: line-through;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--color-accent);
+            color: var(--color-white);
+            padding: 0.3rem 0.7rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .finance-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .finance-card {
+            background: var(--color-white);
+            border: 2px solid var(--color-border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .finance-card:hover {
+            border-color: var(--color-primary);
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.15);
+        }
+
+        .finance-logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .finance-details {
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+        }
+
+        .finance-details div {
+            margin-bottom: 0.5rem;
+        }
+
+        .label {
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .contact-form {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--color-primary);
+            color: var(--color-white);
+            border: none;
+            padding: 0.75rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: var(--color-primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+        }
+
+        .about-section {
+            background: var(--color-white);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .about-section h2 {
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        .about-section p {
+            margin-bottom: 1rem;
+            color: var(--color-text-light);
+        }
+
+        .location-info {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: var(--color-white);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .location-info h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            background: var(--color-white);
+            color: var(--color-primary);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer {
+            background: var(--color-text);
+            color: var(--color-white);
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-tabs {
+                width: 100%;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">📱 New Ashish Mobile Gallery</div>
+            <div class="nav-tabs">
+                <button class="nav-tab active" onclick="switchTab('home')">Home</button>
+                <button class="nav-tab" onclick="switchTab('products')">Products</button>
+                <button class="nav-tab" onclick="switchTab('finance')">Finance</button>
+                <button class="nav-tab" onclick="switchTab('about')">About</button>
+                <button class="nav-tab" onclick="switchTab('contact')">Contact</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- HOME SECTION -->
+        <section id="home" class="section active">
+            <div class="hero">
+                <h1>Welcome to New Ashish Mobile Gallery</h1>
+                <p>Premium Smartphones with Flexible Finance Options</p>
+                <p style="font-size: 0.95rem; opacity: 0.9;">20 Years of Trust • 12,000+ Happy Customers</p>
+                <button class="cta-button" onclick="switchTab('products')">Browse Our Products</button>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">12,000+</div>
+                    <div class="stat-label">Happy Customers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">12,000+</div>
+                    <div class="stat-label">Mobiles Sold</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Finance Partners</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">20+</div>
+                    <div class="stat-label">Years of Trust</div>
+                </div>
+            </div>
+
+            <div class="about-section">
+                <h2>Why Choose Us?</h2>
+                <p><strong>✓ Best Prices in Town:</strong> Direct competition with major chains, but with personalized service.</p>
+                <p><strong>✓ Flexible Payment Options:</strong> Cash, debit, credit, or finance through multiple trusted companies.</p>
+                <p><strong>✓ Honest Guidance:</strong> We help you pick the right phone for your needs, not the most expensive one.</p>
+                <p><strong>✓ Post-Sale Support:</strong> We handle warranty, service, and financing follow-ups personally.</p>
+            </div>
+        </section>
+
+        <!-- PRODUCTS SECTION -->
+        <section id="products" class="section">
+            <h2 style="margin-bottom: 1.5rem; color: var(--color-primary);">Our Mobile Phone Collection</h2>
+            
+            <div style="margin-bottom: 1.5rem;">
+                <label style="font-weight: 600; margin-right: 1rem;">Filter by Price Range:</label>
+                <select id="priceFilter" onchange="filterProducts()" style="padding: 0.5rem; border: 1px solid var(--color-border); border-radius: 6px;">
+                    <option value="all">All Prices</option>
+                    <option value="budget">Budget (₹5k - ₹10k)</option>
+                    <option value="mid">Mid-Range (₹10k - ₹20k)</option>
+                    <option value="premium">Premium (₹20k - ₹40k)</option>
+                </select>
+            </div>
+
+            <div class="product-grid" id="productGrid">
+                <!-- Products will be inserted here by JavaScript -->
+            </div>
+        </section>
+
+        <!-- FINANCE SECTION -->
+        <section id="finance" class="section">
+            <h2 style="margin-bottom: 1.5rem; color: var(--color-primary);">Finance Your Phone Today</h2>
+            <p style="margin-bottom: 2rem; color: var(--color-text-light);">No Cost EMI available on selected phones. Choose from our trusted finance partners.</p>
+            
+            <div class="finance-options" id="financeOptions">
+                <!-- Finance options will be inserted here by JavaScript -->
+            </div>
+
+            <div style="background: var(--color-bg); padding: 2rem; border-radius: 8px; margin-top: 2rem;">
+                <h3 style="margin-bottom: 1rem; color: var(--color-primary);">Finance Process</h3>
+                <ol style="line-height: 1.8; color: var(--color-text-light);">
+                    <li><strong>Choose Your Phone:</strong> Select the phone you want.</li>
+                    <li><strong>Select Finance Option:</strong> Choose your preferred finance company.</li>
+                    <li><strong>Document Verification:</strong> Bring your ID, address proof, and income proof (if required).</li>
+                    <li><strong>Instant Approval:</strong> Get instant approval and walk out with your phone.</li>
+                    <li><strong>EMI Payment:</strong> Pay monthly EMI through bank or directly with us.</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="section">
+            <div class="about-section">
+                <h2>About New Ashish Mobile Gallery</h2>
+                <p>Serving Gwalior for over 20 years with unwavering commitment to quality and trust. We have sold over 12,000 mobile phones to satisfied customers across the region. Our shop is dedicated to providing authentic smartphones at competitive prices with transparent dealings.</p>
+                
+                <h3 style="color: var(--color-primary); margin-top: 1.5rem; margin-bottom: 1rem;">Our Mission</h3>
+                <p>To make quality smartphones accessible to everyone through honest pricing, flexible payment options, and excellent customer service.</p>
+
+                <h3 style="color: var(--color-primary); margin-top: 1.5rem; margin-bottom: 1rem;">What We Offer</h3>
+                <ul style="margin-left: 2rem; line-height: 1.8;">
+                    <li>All major smartphone brands (Apple, Samsung, OnePlus, Xiaomi, etc.)</li>
+                    <li>Competitive pricing with warranty</li>
+                    <li>Multiple finance options for EMI purchases</li>
+                    <li>Trade-in value for old phones</li>
+                    <li>Accessories and protection plans</li>
+                    <li>Expert consultation on phone selection</li>
+                </ul>
+            </div>
+
+            <div class="location-info">
+                <h3>📍 Visit Our Shop</h3>
+                <p><strong>Location:</strong> Gol Padiya, AB Road, Near Nehru Petrol Pump, Gwalior, M.P.</p>
+                <p><strong>Hours:</strong> 10:30 AM - 9:30 PM (Every Day)</p>
+                <p><strong>WhatsApp:</strong> <a href="https://wa.me/918839462102" style="color: var(--color-white); text-decoration: underline;">+91 8839 462 102</a> | <a href="https://wa.me/919039315811" style="color: var(--color-white); text-decoration: underline;">+91 9039 315 811</a></p>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="section">
+            <h2 style="text-align: center; margin-bottom: 2rem; color: var(--color-primary);">Get in Touch</h2>
+            
+            <div class="contact-form">
+                <form onsubmit="handleContactForm(event)">
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" required placeholder="Enter your full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" required placeholder="Enter your phone number">
+                    </div>
+
+                    <div class="form-group">
+                        <label>What are you interested in?</label>
+                        <select required>
+                            <option value="">Select an option</option>
+                            <option value="cash">Cash Purchase</option>
+                            <option value="finance">Finance Option</option>
+                            <option value="trade-in">Trade-In Offer</option>
+                            <option value="accessories">Accessories</option>
+                            <option value="other">Other Query</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Budget Range</label>
+                        <select required>
+                            <option value="">Select budget</option>
+                            <option value="5-10">₹5,000 - ₹10,000</option>
+                            <option value="10-20">₹10,000 - ₹20,000</option>
+                            <option value="20-40">₹20,000 - ₹40,000</option>
+                            <option value="40+">₹40,000+</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Your Message</label>
+                        <textarea required placeholder="Tell us about your requirements or questions..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Send WhatsApp Message</button>
+                </form>
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <p style="color: var(--color-text-light); margin-bottom: 1rem;">Or reach us directly:</p>
+                <div class="social-links">
+                    <a href="https://wa.me/918839462102" class="social-btn">WhatsApp 1</a>
+                    <a href="tel:+918839462102" class="social-btn">Call Us</a>
+                    <a href="https://instagram.com" class="social-btn">Instagram</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 New Ashish Mobile Gallery. All rights reserved.</p>
+        <p style="font-size: 0.8rem; margin-top: 0.5rem;">20 Years of Trust • 12,000+ Happy Customers • Gol Padiya, AB Road, Gwalior</p>
+    </footer>
+
+    <script>
+        // Product data
+        const products = [
+            {
+                name: "Samsung Galaxy A15",
+                spec: "6GB RAM • 128GB Storage",
+                price: "₹11,999",
+                mrp: "₹14,999",
+                range: "mid",
+                emoji: "📱"
+            },
+            {
+                name: "Redmi Note 13",
+                spec: "6GB RAM • 128GB Storage",
+                price: "₹9,999",
+                mrp: "₹12,999",
+                range: "budget",
+                emoji: "📱"
+            },
+            {
+                name: "OnePlus 11",
+                spec: "8GB RAM • 256GB Storage",
+                price: "₹18,999",
+                mrp: "₹24,999",
+                range: "mid",
+                emoji: "📱"
+            },
+            {
+                name: "iPhone 13",
+                spec: "6GB RAM • 128GB Storage",
+                price: "₹32,999",
+                mrp: "₹39,999",
+                range: "premium",
+                emoji: "📱"
+            },
+            {
+                name: "Xiaomi 13T",
+                spec: "8GB RAM • 256GB Storage",
+                price: "₹21,999",
+                mrp: "₹27,999",
+                range: "premium",
+                emoji: "📱"
+            },
+            {
+                name: "Poco X5",
+                spec: "6GB RAM • 128GB Storage",
+                price: "₹12,999",
+                mrp: "₹16,999",
+                range: "mid",
+                emoji: "📱"
+            }
+        ];
+
+        // Finance partner data
+        const financePartners = [
+            {
+                name: "Home Credit",
+                icon: "🏦",
+                details: ["Max Loan: ₹2,50,000", "EMI: 3-24 months", "No-Cost EMI available"]
+            },
+            {
+                name: "Poonawalla",
+                icon: "💳",
+                details: ["Max Loan: ₹3,00,000", "EMI: 3-24 months", "Instant approval"]
+            },
+            {
+                name: "Cholamandalam",
+                icon: "🏢",
+                details: ["Max Loan: ₹5,00,000", "EMI: 3-36 months", "Salaried & self-employed"]
+            },
+            {
+                name: "TVS Credit",
+                icon: "🚗",
+                details: ["Max Loan: ₹4,00,000", "EMI: 3-36 months", "Easy documentation"]
+            },
+            {
+                name: "HDB Finance",
+                icon: "🏦",
+                details: ["Max Loan: ₹2,50,000", "EMI: 3-24 months", "Quick disbursal"]
+            },
+            {
+                name: "Bajaj Finance",
+                icon: "💰",
+                details: ["Max Loan: ₹3,50,000", "EMI: 3-36 months", "Flexible terms"]
+            }
+        ];
+
+        // Switch between tabs
+        function switchTab(tabName) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(sec => {
+                sec.classList.remove('active');
+            });
+
+            // Remove active from all tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(tabName).classList.add('active');
+
+            // Add active to clicked tab
+            event.target.classList.add('active');
+
+            // Generate products on first view
+            if (tabName === 'products' && document.getElementById('productGrid').innerHTML === '') {
+                renderProducts(products);
+            }
+
+            // Generate finance on first view
+            if (tabName === 'finance' && document.getElementById('financeOptions').innerHTML === '') {
+                renderFinance(financePartners);
+            }
+        }
+
+        // Render products
+        function renderProducts(data) {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = data.map(product => `
+                <div class="product-card" onclick="sendWhatsAppMessage('${product.name}', '${product.price}')">
+                    <div class="product-image">${product.emoji}</div>
+                    <div class="product-info">
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-spec">${product.spec}</div>
+                        <div class="price-range">
+                            <div>
+                                <div class="price">${product.price}</div>
+                                <div class="mrp">${product.mrp}</div>
+                            </div>
+                            <span class="badge">Finance ✓</span>
+                        </div>
+                        <button class="cta-button" style="width: 100%; font-size: 0.9rem; padding: 0.5rem;">Inquire Now</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render finance options
+        function renderFinance(data) {
+            const container = document.getElementById('financeOptions');
+            container.innerHTML = data.map(partner => `
+                <div class="finance-card">
+                    <div class="finance-logo">${partner.icon} ${partner.name}</div>
+                    <div class="finance-details">
+                        ${partner.details.map(detail => `<div>• ${detail}</div>`).join('')}
+                    </div>
+                    <button class="cta-button" style="width: 100%; margin-top: 1rem; font-size: 0.9rem; padding: 0.5rem;">Learn More</button>
+                </div>
+            `).join('');
+        }
+
+        // Filter products
+        function filterProducts() {
+            const filter = document.getElementById('priceFilter').value;
+            const filtered = filter === 'all' ? products : products.filter(p => p.range === filter);
+            renderProducts(filtered);
+        }
+
+        // Send WhatsApp message
+        function sendWhatsAppMessage(productName, price) {
+            const message = `Hi! I'm interested in the ${productName} (${price}). Can you provide more details?`;
+            const whatsappURL = `https://wa.me/918839462102?text=${encodeURIComponent(message)}`;
+            window.open(whatsappURL, '_blank');
+        }
+
+        // Handle contact form
+        function handleContactForm(event) {
+            event.preventDefault();
+            const form = event.target;
+            const name = form.querySelector('input[type="text"]').value;
+            const phone = form.querySelector('input[type="tel"]').value;
+            const interest = form.querySelector('select').value;
+            const budget = form.querySelectorAll('select')[1].value;
+            const message = form.querySelector('textarea').value;
+
+            const whatsappMessage = `Hi New Ashish Mobile Gallery! I am ${name}. I'm interested in ${interest} with budget ₹${budget}. ${message}`;
+            const whatsappURL = `https://wa.me/918839462102?text=${encodeURIComponent(whatsappMessage)}`;
+            window.open(whatsappURL, '_blank');
+
+            form.reset();
+            alert('Redirecting to WhatsApp...');
+        }
+
+        // Initialize products on load
+        window.addEventListener('load', () => {
+            renderProducts(products);
+            renderFinance(financePartners);
+        });
+    </script>
+</body>
+</html>
