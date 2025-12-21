@@ -1,656 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Ashish Mobile Gallery | Gwalior's Trusted Android Store</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Outfit', 'sans-serif'],
-                    },
-                    colors: {
-                        brand: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            900: '#1e3a8a',
-                        },
-                        accent: {
-                            500: '#f97316', // Orange for Call to Action
-                        }
-                    }
-                }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New Ashish Mobile Gallery</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              600: "#2563eb",
+              700: "#1d4ed8"
             }
+          }
         }
-    </script>
-    <style>
-        html { scroll-behavior: smooth; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .product-card { transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
-        .product-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
-        #mobile-menu { transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out; max-height: 0; opacity: 0; overflow: hidden; }
-        #mobile-menu.open { max-height: 400px; opacity: 1; }
-    </style>
+      }
+    }
+  </script>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans antialiased">
 
-    <!-- Navbar -->
-    <nav class="bg-white shadow-sm fixed w-full z-50 transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20">
-                <!-- Logo -->
-                <div class="flex items-center">
-                    <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
-                        <div class="w-10 h-10 bg-brand-600 rounded-lg flex items-center justify-center text-white text-xl font-bold">
-                            <i class="fa-solid fa-mobile-screen"></i>
-                        </div>
-                        <div class="hidden md:block">
-                            <h1 class="text-xl font-bold text-gray-900 leading-tight">New Ashish</h1>
-                            <p class="text-xs text-brand-600 font-medium tracking-wide">MOBILE GALLERY</p>
-                        </div>
-                    </div>
-                </div>
+<body class="bg-gray-50 text-gray-800">
 
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#home" class="text-gray-600 hover:text-brand-600 font-medium transition">Home</a>
-                    <a href="#catalogue" class="text-gray-600 hover:text-brand-600 font-medium transition">Smartphone Catalog</a>
-                    <!-- FIX: Ensure href points to #services -->
-                    <a href="#services" class="text-gray-600 hover:text-brand-600 font-medium transition">Repairs</a>
-                    <a href="#location" class="text-gray-600 hover:text-brand-600 font-medium transition">Visit Store</a>
-                </div>
+<!-- ================= NAVBAR ================= -->
+<nav class="bg-white shadow fixed w-full z-50">
+  <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
+    <div class="font-bold text-lg">New Ashish Mobile</div>
+    <div class="hidden md:flex gap-6">
+      <a href="#catalogue">Phones</a>
+      <a href="#services">Repairs</a>
+      <a href="#location">Visit Store</a>
+    </div>
+  </div>
+</nav>
 
-                <!-- Icons -->
-                <div class="flex items-center gap-4">
-                    <!-- FIX: Call Store Button with correct tel: link and mobile optimization -->
-                    <a href="tel:+918839462102" class="flex items-center gap-2 bg-brand-50 text-brand-700 px-4 py-2 rounded-full text-sm font-semibold hover:bg-brand-100 transition shadow-sm border border-brand-200">
-                        <i class="fa-solid fa-phone"></i>
-                        <span class="hidden sm:inline">Call Store</span>
-                    </a>
-                    
-                    <button class="relative p-2 text-gray-600 hover:text-brand-600 transition" onclick="toggleCart()">
-                        <i class="fa-regular fa-clipboard text-xl"></i>
-                        <span id="cart-count" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-accent-500 rounded-full">0</span>
-                    </button>
-                    <button class="md:hidden p-2 text-gray-600 hover:text-gray-900 focus:outline-none" onclick="toggleMobileMenu()">
-                        <i class="fa-solid fa-bars text-2xl"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="md:hidden bg-white border-t border-gray-100 shadow-lg">
-            <div class="px-4 pt-2 pb-4 space-y-1">
-                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-gray-50" onclick="toggleMobileMenu()">Home</a>
-                <a href="#catalogue" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-gray-50" onclick="toggleMobileMenu()">Phones</a>
-                <a href="#services" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-gray-50" onclick="toggleMobileMenu()">Repairs</a>
-                <a href="#location" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-gray-50" onclick="toggleMobileMenu()">Visit Us</a>
-            </div>
-        </div>
-    </nav>
+<div class="pt-20"></div>
 
-    <!-- Hero Section -->
-    <section id="home" class="pt-28 pb-16 bg-gradient-to-br from-white via-blue-50 to-indigo-50 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="z-10">
-                    <span class="inline-block px-4 py-1.5 rounded-full bg-brand-100 text-brand-700 text-sm font-semibold mb-6 tracking-wide">
-                        <i class="fa-solid fa-map-pin mr-1"></i> Gol Pahariya, Laxmiganj, Gwalior
-                    </span>
-                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
-                        Gwalior's Trusted <span class="text-brand-600">Android Showroom</span> & Repair Expert
-                    </h1>
-                    <p class="text-lg text-gray-600 mb-8 leading-relaxed max-w-lg">
-                        Serving the community for over 20 years. Visit our store to experience the latest mobiles from Samsung, Vivo, Oppo, and Realme hands-on before you buy.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="#catalogue" class="inline-flex items-center justify-center px-8 py-3.5 border border-transparent text-base font-medium rounded-lg text-white bg-brand-600 hover:bg-brand-700 md:text-lg transition shadow-lg shadow-brand-500/30">
-                            View Catalog
-                        </a>
-                        <a href="https://wa.me/919039315811" target="_blank" class="inline-flex items-center justify-center px-8 py-3.5 border border-gray-300 text-base font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 md:text-lg transition hover:text-brand-600">
-                            <i class="fa-brands fa-whatsapp mr-2 text-green-600"></i> Chat with Us
-                        </a>
-                    </div>
-                    
-                    <!-- Trust Badges -->
-                    <div class="mt-10 flex flex-wrap items-center gap-6 text-sm text-gray-500 font-medium">
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-shield-halved text-green-500"></i> 20+ Years Trust
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-store text-green-500"></i> Physical Store
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-indian-rupee-sign text-green-500"></i> Easy Finance
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Hero Visual -->
-                <div class="relative hidden lg:block">
-                    <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-brand-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
-                    <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 bg-accent-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
-                    
-                    <div class="relative mx-auto bg-white rounded-[2.5rem] shadow-2xl border-8 border-gray-900 h-[500px] w-[280px] overflow-hidden transform rotate-[-6deg] hover:rotate-0 transition duration-500">
-                        <div class="h-full w-full bg-gray-900 flex flex-col items-center justify-center text-white p-6 text-center">
-                            <i class="fa-brands fa-android text-6xl mb-4 text-green-500"></i>
-                            <h3 class="text-xl font-bold">Latest Models</h3>
-                            <p class="text-sm text-gray-400 mt-2">Available In-Store</p>
-                            <div class="mt-8 w-16 h-16 rounded-full border-2 border-white/20 border-t-brand-500 animate-spin"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- ================= HERO ================= -->
+<section class="max-w-7xl mx-auto px-4 py-12">
+  <h1 class="text-4xl font-bold mb-4">
+    Gwalior’s Trusted Android Mobile Store
+  </h1>
+  <p class="text-gray-600 max-w-xl">
+    20+ years of trust • Android mobiles • Easy finance • Expert repairs
+  </p>
+</section>
 
-    <!-- FIX: Updated Finance / EMI Section with Correct Partners -->
-    <section class="bg-white border-y border-gray-100 py-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                <div>
-                    <span class="text-accent-500 font-bold text-sm tracking-wider uppercase mb-2 block">Easy Affordability</span>
-                    <h2 class="text-2xl font-bold text-gray-900 mb-4">Dream Phone? Buy with 0% Down Payment.</h2>
-                    <p class="text-gray-600 mb-6">
-                        Don't let budget stop you. We offer easy EMI options directly at our store with 6 leading finance partners.
-                    </p>
-                    <ul class="space-y-3">
-                        <li class="flex items-center text-gray-700">
-                            <i class="fa-solid fa-check text-green-500 mr-3"></i> 0% Down Payment (on eligible models)
-                        </li>
-                        <li class="flex items-center text-gray-700">
-                            <i class="fa-solid fa-check text-green-500 mr-3"></i> Instant Approval Process
-                        </li>
-                        <li class="flex items-center text-gray-700">
-                            <i class="fa-solid fa-check text-green-500 mr-3"></i> Minimal Documentation
-                        </li>
-                    </ul>
-                </div>
-                <div class="bg-gray-50 rounded-xl p-6 border border-gray-100">
-                    <h3 class="font-semibold text-gray-900 mb-4 text-center">Our Finance Partners</h3>
-                    <!-- Updated Grid for 6 specific partners -->
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-center">
-                        <div class="bg-white p-3 rounded shadow-sm text-xs md:text-sm font-bold text-gray-700 flex items-center justify-center h-16">Home Credit</div>
-                        <div class="bg-white p-3 rounded shadow-sm text-xs md:text-sm font-bold text-gray-700 flex items-center justify-center h-16">TVS Credit</div>
-                        <div class="bg-white p-3 rounded shadow-sm text-xs md:text-sm font-bold text-gray-700 flex items-center justify-center h-16">Cholamandalam (Chola)</div>
-                        <div class="bg-white p-3 rounded shadow-sm text-xs md:text-sm font-bold text-gray-700 flex items-center justify-center h-16">HDB Financial</div>
-                        <div class="bg-white p-3 rounded shadow-sm text-xs md:text-sm font-bold text-gray-700 flex items-center justify-center h-16">Samsung Finance</div>
-                        <div class="bg-white p-3 rounded shadow-sm text-xs md:text-sm font-bold text-gray-700 flex items-center justify-center h-16">Poonawalla Fincorp</div>
-                    </div>
-                    <p class="text-xs text-center text-gray-400 mt-4">*Finance eligibility depends on credit score & documents.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- ================= CATALOGUE ================= -->
+<section id="catalogue" class="py-16 bg-gray-100">
+  <div class="max-w-7xl mx-auto px-4">
 
-    <!-- Catalogue Section -->
-    <section id="catalogue" class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-8">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Smartphone Catalog</h2>
-                <p class="text-gray-600">Check out the latest models available. Visit our shop in Laxmiganj for the final best price and offers.</p>
-            </div>
+    <h2 class="text-3xl font-bold text-center mb-8">
+      Smartphone Catalogue
+    </h2>
 
-            <!-- RESTORED: "How to Buy" Section with Online Delivery Warning -->
-            <div class="max-w-4xl mx-auto mb-10 bg-white border border-brand-200 rounded-xl shadow-sm p-6 flex flex-col md:flex-row items-center justify-between gap-4">
-                <div>
-                    <h3 class="font-bold text-gray-900 flex items-center gap-2">
-                        <i class="fa-solid fa-bag-shopping text-brand-600"></i> How to Buy
-                    </h3>
-                    <p class="text-sm text-gray-600 mt-1">
-                        1. <strong>Contact us</strong> on WhatsApp or Call.<br>
-                        2. <strong>Visit Shop</strong> to check the device and purchase.
-                    </p>
-                    <p class="text-xs text-red-500 font-semibold mt-2 bg-red-50 inline-block px-2 py-1 rounded">
-                        <i class="fa-solid fa-circle-info mr-1"></i> Online delivery is currently unavailable.
-                    </p>
-                </div>
-                <div class="flex gap-3">
-                    <a href="https://wa.me/919039315811" target="_blank" class="px-5 py-2.5 bg-green-500 text-white text-sm font-medium rounded-lg hover:bg-green-600 transition shadow-sm">
-                        <i class="fa-brands fa-whatsapp mr-1"></i> WhatsApp
-                    </a>
-                    <a href="tel:+918839462102" class="px-5 py-2.5 bg-brand-600 text-white text-sm font-medium rounded-lg hover:bg-brand-700 transition shadow-sm">
-                        <i class="fa-solid fa-phone mr-1"></i> Call Store
-                    </a>
-                </div>
-            </div>
-
-            <!-- Categories -->
-            <div class="flex justify-center mb-10 overflow-x-auto no-scrollbar pb-2">
-                <div class="bg-white p-1 rounded-xl shadow-sm inline-flex border border-gray-200">
-                    <button class="px-6 py-2 rounded-lg text-sm font-medium transition bg-brand-600 text-white shadow-sm" onclick="filterProducts('all', this)">All</button>
-                    <button class="px-6 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-brand-600 hover:bg-gray-50 transition" onclick="filterProducts('Samsung', this)">Samsung</button>
-                    <button class="px-6 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-brand-600 hover:bg-gray-50 transition" onclick="filterProducts('Vivo', this)">Vivo</button>
-                    <button class="px-6 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-brand-600 hover:bg-gray-50 transition" onclick="filterProducts('Oppo', this)">Oppo</button>
-                </div>
-            </div>
-
-            <!-- Product Grid -->
-            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Products injected by JS -->
-            </div>
-            
-            <div class="mt-12 text-center">
-                <a href="#location" class="inline-block border-b-2 border-brand-600 text-brand-700 font-semibold pb-1 hover:text-brand-800">
-                    Visit Store to Check Availability <i class="fa-solid fa-arrow-right ml-1"></i>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- FIX: Restored & Improved Repair Services Section -->
-    <section id="services" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <!-- Content -->
-                <div class="order-2 lg:order-1">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Expert Mobile Repair Center</h2>
-                    <p class="text-gray-600 mb-8">
-                        Face-to-face diagnosis and transparent repair service. Whether it's a broken screen or software issue, our expert technicians fix it while you wait.
-                    </p>
-                    
-                    <div class="space-y-6">
-                        <!-- Service 1: Screen & Battery -->
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0">
-                                <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-blue-50 text-brand-600">
-                                    <i class="fa-solid fa-screwdriver-wrench text-xl"></i>
-                                </div>
-                            </div>
-                            <div class="ml-4">
-                                <h3 class="text-lg font-bold text-gray-900">Screen & Battery Replacement</h3>
-                                <p class="text-sm text-gray-500 mt-1">Genuine quality displays and battery health restoration for all Android brands.</p>
-                            </div>
-                        </div>
-
-                        <!-- Service 2: Hardware Issues -->
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0">
-                                <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-orange-50 text-orange-600">
-                                    <i class="fa-solid fa-volume-high text-xl"></i>
-                                </div>
-                            </div>
-                            <div class="ml-4">
-                                <h3 class="text-lg font-bold text-gray-900">Charging, Mic & Speaker</h3>
-                                <p class="text-sm text-gray-500 mt-1">Fix slow charging, loose jacks, low sound volume, or microphone issues quickly.</p>
-                            </div>
-                        </div>
-
-                        <!-- Service 3: Software -->
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0">
-                                <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-green-50 text-green-600">
-                                    <i class="fa-solid fa-microchip text-xl"></i>
-                                </div>
-                            </div>
-                            <div class="ml-4">
-                                <h3 class="text-lg font-bold text-gray-900">Software & Unlocking</h3>
-                                <p class="text-sm text-gray-500 mt-1">Pattern unlock, FRP bypass, software flashing, and data recovery solutions.</p>
-                            </div>
-                        </div>
-
-                         <!-- Service 4: Diagnosis -->
-                         <div class="flex items-start">
-                            <div class="flex-shrink-0">
-                                <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-gray-100 text-gray-600">
-                                    <i class="fa-solid fa-magnifying-glass text-xl"></i>
-                                </div>
-                            </div>
-                            <div class="ml-4">
-                                <h3 class="text-lg font-bold text-gray-900">Free Diagnosis</h3>
-                                <p class="text-sm text-gray-500 mt-1">Visit us for a free check-up. We tell you the exact cost before starting work.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-10">
-                        <a href="https://wa.me/919039315811" target="_blank" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-green-600 hover:bg-green-700 transition shadow-lg shadow-green-600/20">
-                            <i class="fa-brands fa-whatsapp mr-2 text-xl"></i> WhatsApp Us for Quote
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Visual -->
-                <div class="order-1 lg:order-2 bg-gray-100 rounded-2xl p-8 relative min-h-[400px] flex items-center justify-center">
-                     <div class="absolute inset-0 bg-gradient-to-br from-brand-50 to-white rounded-2xl"></div>
-                     <div class="relative z-10 text-center">
-                        <div class="bg-white p-6 rounded-full shadow-xl inline-block mb-6">
-                            <i class="fa-solid fa-wrench text-6xl text-brand-600"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-800">Quick Turnaround</h3>
-                        <p class="text-gray-500 mt-2">Most repairs done in 60 mins</p>
-                        
-                        <div class="bg-white p-4 rounded-lg shadow-lg absolute -bottom-6 -left-6 border-l-4 border-yellow-400 w-64 text-left hidden sm:block">
-                            <p class="text-xs font-semibold text-gray-800">"Honest shop. They fixed my phone charging issue instantly."</p>
-                            <p class="text-[10px] text-gray-400 mt-1">- Local Customer, Gol Pahariya</p>
-                        </div>
-                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Location & CTA -->
-    <section id="location" class="py-20 bg-brand-900 text-white relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <div>
-                    <h2 class="text-3xl font-bold mb-6">Visit Our Showroom</h2>
-                    <p class="text-brand-200 mb-4 text-lg">We are a physical retail store. Please visit us for final pricing, financing, and purchases.</p>
-                    
-                    <!-- Experience / Trust Text -->
-                    <div class="mb-8 p-4 bg-white/5 rounded-lg border-l-4 border-accent-500">
-                        <p class="text-white font-medium text-base">
-                            <i class="fa-solid fa-store text-accent-500 mr-2"></i>
-                            Serving Gwalior for 20+ years. We are your neighbors, not an anonymous website.
-                        </p>
-                    </div>
-                    
-                    <div class="space-y-4">
-                        <div class="flex items-start">
-                            <i class="fa-solid fa-map-location-dot mt-1 mr-4 text-accent-500 text-xl"></i>
-                            <div>
-                                <h4 class="font-bold text-white">Address</h4>
-                                <p class="text-brand-100">643Q+2C9, AH47, near Nehru Petrol Pump,<br>Gol Pahariya, Laxmi Ganj,<br>Gwalior, Madhya Pradesh – 474001</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <i class="fa-solid fa-clock mt-1 mr-4 text-accent-500 text-xl"></i>
-                            <div>
-                                <h4 class="font-bold text-white">Opening Hours</h4>
-                                <p class="text-brand-100">Mon – Sun: 10:30 AM – 9:30 PM</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <i class="fa-solid fa-phone-volume mt-1 mr-4 text-accent-500 text-xl"></i>
-                            <div>
-                                <h4 class="font-bold text-white">Contact</h4>
-                                <p class="text-brand-100">8839462102 / 9039315811<br>WhatsApp: 9039315811</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Map Container -->
-                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-2 border border-white/20 h-80 relative overflow-hidden shadow-2xl">
-                    <iframe 
-                        src="https://maps.google.com/maps?q=643Q+2C9,+AH47,+near+Nehru+Petrol+Pump,+Gol+Pahariya,+Laxmi+Ganj,+Gwalior&t=&z=15&ie=UTF8&iwloc=&output=embed" 
-                        class="w-full h-full rounded-xl object-cover" 
-                        allowfullscreen="" 
-                        loading="lazy" 
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
-                    
-                    <a href="https://www.google.com/maps/dir//643Q%2B2C9,+AH47,+near+Nehru+Petrol+Pump,+Gol+Pahariya,+Laxmi+Ganj,+Gwalior,+Madhya+Pradesh+474001" 
-                       target="_blank" 
-                       class="absolute bottom-4 right-4 bg-white text-brand-700 px-4 py-2 rounded-lg text-sm font-bold shadow-lg hover:bg-gray-100 transition flex items-center gap-2">
-                        <i class="fa-solid fa-diamond-turn-right text-accent-500"></i> Get Directions
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-300 pt-16 pb-8 border-t border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-                <div class="col-span-1 md:col-span-1">
-                    <div class="text-xl font-bold text-white mb-4">New Ashish <span class="text-brand-500">Mobile</span></div>
-                    <p class="text-sm text-gray-400 leading-relaxed">
-                        Gwalior's trusted offline retail shop. We specialize in Android sales, service, and easy finance options.
-                    </p>
-                    <div class="flex space-x-4 mt-6">
-                        <a href="https://www.instagram.com/newashishmobilegallery?igsh=MXNyanBxMDh1ODBrbQ==" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-instagram text-xl"></i></a>
-                        <a href="https://wa.me/919039315811" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-whatsapp text-xl"></i></a>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 class="text-white font-semibold mb-4">Brands We Sell</h3>
-                    <ul class="space-y-2 text-sm">
-                        <li>Samsung</li>
-                        <li>Vivo</li>
-                        <li>Oppo</li>
-                        <li>Realme</li>
-                        <li>OnePlus</li>
-                        <li>Xiaomi</li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-white font-semibold mb-4">Services</h3>
-                    <ul class="space-y-2 text-sm">
-                        <li>Screen Replacement</li>
-                        <li>Battery Change</li>
-                        <li>Software Unlocking</li>
-                        <li>Hardware Repair</li>
-                        <li>Zero Down Payment Finance</li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-white font-semibold mb-4">Quick Links</h3>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#home" class="hover:text-brand-500 transition">Home</a></li>
-                        <li><a href="#location" class="hover:text-brand-500 transition">Visit Store</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-sm text-gray-500">&copy; 2024 New Ashish Mobile Gallery. All rights reserved.</p>
-                <p class="text-sm text-gray-600 mt-2 md:mt-0">Mon – Sun: 10:30 AM – 9:30 PM</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Wishlist / Inquiry Modal -->
-    <div id="cart-modal" class="fixed inset-0 z-[60] hidden">
-        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="toggleCart()"></div>
-        <div class="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl p-6 transform transition-transform duration-300 translate-x-full" id="cart-panel">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold text-gray-900">Your Wishlist</h2>
-                <button onclick="toggleCart()" class="text-gray-500 hover:text-red-500">
-                    <i class="fa-solid fa-xmark text-2xl"></i>
-                </button>
-            </div>
-            
-            <div id="cart-items" class="flex-1 overflow-y-auto h-[60vh] space-y-4">
-                <!-- Empty State -->
-                <div class="flex flex-col items-center justify-center h-full text-gray-400">
-                    <i class="fa-regular fa-clipboard text-4xl mb-4"></i>
-                    <p>No items selected.</p>
-                    <button onclick="toggleCart()" class="mt-4 text-brand-600 font-medium hover:underline">Browse Phones</button>
-                </div>
-            </div>
-            
-            <div class="absolute bottom-0 left-0 w-full bg-white border-t border-gray-100 p-6">
-                <p class="text-xs text-red-500 mb-3 text-center bg-red-50 p-2 rounded">
-                    <i class="fa-solid fa-store mr-1"></i> <strong>Note:</strong> We do not sell online. This list helps you enquire about stock availability.
-                </p>
-                
-                <button onclick="window.open('https://wa.me/919039315811?text=Hi%2C%20I%20am%20interested%20in%20products%20from%20New%20Ashish%20Mobile%20Gallery', '_blank')" class="w-full bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600 transition">
-                    <i class="fa-brands fa-whatsapp mr-2"></i> Check Stock on WhatsApp
-                </button>
-            </div>
-        </div>
+    <!-- Filters -->
+    <div class="flex justify-center mb-8 gap-2">
+      <button onclick="filterProducts('all', this)"
+        class="px-4 py-2 bg-brand-600 text-white rounded">
+        All
+      </button>
+      <button onclick="filterProducts('Samsung', this)"
+        class="px-4 py-2 bg-white border rounded">
+        Samsung
+      </button>
+      <button onclick="filterProducts('Vivo', this)"
+        class="px-4 py-2 bg-white border rounded">
+        Vivo
+      </button>
+      <button onclick="filterProducts('Oppo', this)"
+        class="px-4 py-2 bg-white border rounded">
+        Oppo
+      </button>
+      <button onclick="filterProducts('Realme', this)"
+        class="px-4 py-2 bg-white border rounded">
+        Realme
+      </button>
     </div>
 
-    <!-- JavaScript Logic -->
-    <script>
-        // Data Store (No Prices, just "Check Store")
-        const products = [
-            { id: 2, name: "Samsung S24 Ultra", category: "Samsung", status: "In Stock", imgColor: "bg-gray-900" },
-            { id: 3, name: "Vivo V29 Pro", category: "Vivo", status: "Best Seller", imgColor: "bg-blue-900" },
-            { id: 5, name: "Samsung A54 5G", category: "Samsung", status: "In Stock", imgColor: "bg-purple-600" },
-            { id: 6, name: "Oppo Reno 10", category: "Oppo", status: "New Arrival", imgColor: "bg-teal-600" },
-            { id: 7, name: "Realme 11 Pro+", category: "Realme", status: "In Stock", imgColor: "bg-yellow-600" },
-            { id: 9, name: "Vivo T2x 5G", category: "Vivo", status: "Budget Friendly", imgColor: "bg-blue-400" },
-            { id: 10, name: "OnePlus Nord CE 3", category: "OnePlus", status: "In Stock", imgColor: "bg-teal-800" },
-            { id: 11, name: "Redmi Note 13", category: "Xiaomi", status: "Hot Selling", imgColor: "bg-red-500" }
-        ];
+    <!-- Product Grid -->
+    <div id="product-grid"
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Loaded dynamically -->
+    </div>
 
-        let cart = [];
+  </div>
+</section>
 
-        // DOM Elements
-        const productGrid = document.getElementById('product-grid');
-        const cartCount = document.getElementById('cart-count');
-        const cartPanel = document.getElementById('cart-panel');
-        const cartModal = document.getElementById('cart-modal');
-        const mobileMenu = document.getElementById('mobile-menu');
+<!-- ================= REPAIR ================= -->
+<section id="services" class="py-16 bg-white">
+  <div class="max-w-7xl mx-auto px-4">
+    <h2 class="text-3xl font-bold mb-4">Repair Services</h2>
+    <p class="text-gray-600 max-w-xl">
+      Screen replacement, battery change, software issues & more.
+      Most repairs done within 60 minutes.
+    </p>
+  </div>
+</section>
 
-        // Render Products
-        function renderProducts(filter = 'all') {
-            productGrid.innerHTML = '';
-            
-            const filtered = filter === 'all' 
-                ? products 
-                : products.filter(p => p.category === filter);
+<!-- ================= LOCATION ================= -->
+<section id="location" class="py-16 bg-gray-900 text-white">
+  <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-8">
+    <div>
+      <h2 class="text-3xl font-bold mb-4">Visit Our Store</h2>
+      <p class="text-gray-300">
+        Near Nehru Petrol Pump, Gol Pahariya, Laxmi Ganj, Gwalior
+      </p>
+      <p class="mt-2">Mon–Sun: 10:30 AM – 9:30 PM</p>
+      <p class="mt-2">📞 9039315811</p>
+    </div>
 
-            filtered.forEach(product => {
-                const card = document.createElement('div');
-                card.className = "bg-white rounded-2xl p-4 border border-gray-100 product-card flex flex-col h-full";
-                
-                const textColor = product.imgColor.includes('bg-gray-200') ? 'text-gray-600' : 'text-white';
-                
-                card.innerHTML = `
-                    <div class="relative w-full pt-[100%] rounded-xl ${product.imgColor} mb-4 overflow-hidden group cursor-pointer">
-                        <div class="absolute inset-0 flex items-center justify-center ${textColor}">
-                            <div class="text-center">
-                                <i class="fa-solid fa-mobile-screen text-4xl mb-2 opacity-50 group-hover:scale-110 transition duration-300"></i>
-                                <span class="block text-xs font-medium uppercase tracking-wider opacity-70">${product.category}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex-grow">
-                        <div class="flex justify-between items-start">
-                            <h3 class="font-bold text-lg text-gray-900 leading-tight">${product.name}</h3>
-                        </div>
-                        <span class="inline-block bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded mt-2">${product.status}</span>
-                    </div>
-                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-50">
-                        <div>
-                            <span class="text-xs text-gray-400 block">Best Market Price</span>
-                            <div class="text-sm font-bold text-brand-600 cursor-pointer hover:underline" onclick="window.location.href='#location'">Visit Store</div>
-                        </div>
-                        <button onclick="addToCart(${product.id})" class="bg-gray-900 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-brand-600 transition shadow-lg" title="Add to Interest List">
-                            <i class="fa-solid fa-plus"></i>
-                        </button>
-                    </div>
-                `;
-                productGrid.appendChild(card);
-            });
-        }
+    <iframe
+      class="w-full h-64 rounded"
+      src="https://maps.google.com/maps?q=643Q+2C9+Gwalior&output=embed">
+    </iframe>
+  </div>
+</section>
 
-        function filterProducts(category, btn) {
-            renderProducts(category);
-            const buttons = btn.parentElement.querySelectorAll('button');
-            buttons.forEach(b => {
-                b.className = "px-6 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-brand-600 hover:bg-gray-50 transition";
-            });
-            btn.className = "px-6 py-2 rounded-lg text-sm font-medium transition bg-brand-600 text-white shadow-sm";
-        }
+<!-- ================= FOOTER ================= -->
+<footer class="bg-black text-gray-400 py-6 text-center">
+  © 2024 New Ashish Mobile Gallery
+</footer>
 
-        function addToCart(id) {
-            const product = products.find(p => p.id === id);
-            // Check if already in cart
-            if (!cart.some(item => item.id === id)) {
-                cart.push(product);
-                updateCartUI();
-                const badge = document.getElementById('cart-count');
-                badge.classList.add('scale-125');
-                setTimeout(() => badge.classList.remove('scale-125'), 200);
-            } else {
-                toggleCart(); // Open cart if item exists
-            }
-        }
+<!-- ================= SCRIPT ================= -->
+<script>
+const API_URL =
+  "https://script.google.com/macros/s/AKfycbw1HL3q0u-dFGrxF71ONDgUOpv4Xs2G5G53cEVmSHSDlOKNMjzSr8wISOeiquN_MFg0/exec";
 
-        function updateCartUI() {
-            cartCount.innerText = cart.length;
-            
-            const cartList = document.getElementById('cart-items');
-            
-            if (cart.length === 0) {
-                cartList.innerHTML = `
-                <div class="flex flex-col items-center justify-center h-full text-gray-400">
-                    <i class="fa-regular fa-clipboard text-4xl mb-4"></i>
-                    <p>No items selected.</p>
-                    <button onclick="toggleCart()" class="mt-4 text-brand-600 font-medium hover:underline">Browse Phones</button>
-                </div>`;
-                return;
-            }
+let allProducts = [];
 
-            cartList.innerHTML = '';
-            
-            cart.forEach((item, index) => {
-                const itemEl = document.createElement('div');
-                itemEl.className = "flex items-center gap-4 bg-gray-50 p-3 rounded-lg";
-                itemEl.innerHTML = `
-                    <div class="w-12 h-12 rounded-md ${item.imgColor} flex items-center justify-center text-white text-xs">
-                        <i class="fa-solid fa-mobile-screen"></i>
-                    </div>
-                    <div class="flex-1">
-                        <h4 class="text-sm font-bold text-gray-900">${item.name}</h4>
-                        <p class="text-xs text-gray-500">${item.category}</p>
-                    </div>
-                    <div class="text-right">
-                        <button onclick="removeFromCart(${index})" class="text-xs text-red-400 hover:text-red-600 underline mt-1">Remove</button>
-                    </div>
-                `;
-                cartList.appendChild(itemEl);
-            });
-        }
+async function loadProducts() {
+  const grid = document.getElementById("product-grid");
+  try {
+    const res = await fetch(API_URL);
+    const data = await res.json();
 
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-        }
+    allProducts = data.filter(p =>
+      p["Category (Mobile / Accessory)"] === "Mobile" &&
+      p["Brand"] !== "Apple"
+    );
 
-        function toggleCart() {
-            if (cartModal.classList.contains('hidden')) {
-                cartModal.classList.remove('hidden');
-                setTimeout(() => {
-                    cartPanel.classList.remove('translate-x-full');
-                }, 10);
-            } else {
-                cartPanel.classList.add('translate-x-full');
-                setTimeout(() => {
-                    cartModal.classList.add('hidden');
-                }, 300);
-            }
-        }
+    renderProducts("all");
+  } catch (e) {
+    grid.innerHTML =
+      "<p class='col-span-full text-center text-gray-500'>Unable to load products.</p>";
+  }
+}
 
-        function toggleMobileMenu() {
-            mobileMenu.classList.toggle('hidden');
-        }
+function renderProducts(filter) {
+  const grid = document.getElementById("product-grid");
+  grid.innerHTML = "";
 
-        renderProducts();
+  const list =
+    filter === "all"
+      ? allProducts
+      : allProducts.filter(p => p["Brand"] === filter);
 
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 20) {
-                nav.classList.add('shadow-md');
-            } else {
-                nav.classList.remove('shadow-md');
-            }
-        });
+  if (list.length === 0) {
+    grid.innerHTML =
+      "<p class='col-span-full text-center text-gray-500'>No products found.</p>";
+    return;
+  }
 
-    </script>
+  list.forEach(p => {
+    const card = document.createElement("div");
+    card.className =
+      "bg-white p-4 rounded shadow flex flex-col";
+
+    card.innerHTML = `
+      <div class="h-40 bg-gray-200 flex items-center justify-center mb-3">
+        <i class="fa-solid fa-mobile-screen text-3xl text-gray-500"></i>
+      </div>
+      <h3 class="font-bold">${p["Product Name"]}</h3>
+      <p class="text-sm text-gray-500">${p["Brand"]}</p>
+      <span class="text-xs mt-2 inline-block bg-gray-100 px-2 py-1 rounded">
+        ${p["Stock Status (In Stock / Out of Stock)"]}
+      </span>
+      <a href="#location"
+        class="mt-auto text-brand-600 font-semibold text-sm mt-4">
+        Visit Store →
+      </a>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function filterProducts(brand) {
+  renderProducts(brand);
+}
+
+document.addEventListener("DOMContentLoaded", loadProducts);
+</script>
+
 </body>
 </html>
