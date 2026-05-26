@@ -25,7 +25,7 @@
                             900: '#1e3a8a',
                         },
                         accent: {
-                            500: '#f97316', // Orange for Call to Action
+                            500: '#f97316', 
                         }
                     }
                 }
@@ -39,13 +39,12 @@
         .product-card { transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
         .product-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
         
-        /* Fixed Mobile Menu Animation */
         #mobile-menu { 
             transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out; 
             max-height: 0; 
             opacity: 0; 
             overflow: hidden; 
-            display: block; /* Ensure it exists in DOM */
+            display: block; 
         }
         #mobile-menu.open { 
             max-height: 400px; 
@@ -477,14 +476,11 @@
     </div>
 
     <script>
-        // Config: Your Google Apps Script Web App URL
         const API_URL = 'https://script.google.com/macros/s/AKfycbw1HL3q0u-dFGrxF71ONDgUOpv4Xs2G5G53cEVmSHSDlOKNMjzSr8wISOeiquN_MFg0/exec';
         
-        // Global State
         let allProducts = [];
         let cart = [];
 
-        // DOM Elements
         const els = {
             grid: document.getElementById('product-grid'),
             cartCount: document.getElementById('cart-count'),
@@ -494,19 +490,14 @@
             cartItems: document.getElementById('cart-items')
         };
 
-        // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             initShop();
             setupScroll();
         });
 
         async function initShop() {
-            if (!els.grid) {
-                console.warn('DOM Error: #product-grid not found.');
-                return;
-            }
+            if (!els.grid) return;
 
-            // 1. Show Loading State
             els.grid.innerHTML = `
                 <div class="col-span-full text-center py-12 text-gray-500">
                     <i class="fa-solid fa-circle-notch fa-spin text-3xl mb-3 text-brand-600"></i>
@@ -515,69 +506,61 @@
             `;
 
             try {
-                // 2. Fetch Data from User's Google Script
-                const response = await fetch(API_URL);
+                // BUG FIX 1: Appended a timestamp cache buster so Vercel never serves stale JSON data
+                const response = await fetch(API_URL + "?t=" + new Date().getTime());
                 if (!response.ok) throw new Error('Network error');
                 
                 const json = await response.json();
-                
-                // 3. Process Data (Handle direct Array return)
-                let rawData = [];
-                if (Array.isArray(json)) {
-                    rawData = json;
-                } else if (json.data && Array.isArray(json.data)) {
-                    rawData = json.data;
-                }
+                let rawData = Array.isArray(json) ? json : (json.data || []);
 
-                // 4. Map & Filter Data - UPDATED to perfectly match your Sheet headers via substring search
                 allProducts = rawData.map(item => {
-                    // This function searches keys dynamically so it never misses your columns
-                    const getVal = (searchString) => {
-                        const foundKey = Object.keys(item).find(k => k.toLowerCase().includes(searchString.toLowerCase()));
-                        return foundKey ? item[foundKey] : '';
+                    const keys = Object.keys(item);
+                    
+                    // BUG FIX 2: Bullet-proof key matching to prevent empty strings due to hidden formatting
+                    const getVal = (...searchTerms) => {
+                        for (let term of searchTerms) {
+                            const lowerTerm = term.toLowerCase();
+                            // Exact match check first
+                            let key = keys.find(k => k.trim().toLowerCase() === lowerTerm);
+                            // Fallback to partial match check
+                            if (!key) key = keys.find(k => k.toLowerCase().includes(lowerTerm));
+                            
+                            if (key && item[key] !== undefined && item[key] !== '') {
+                                return item[key].toString();
+                            }
+                        }
+                        return '';
                     };
 
                     return {
-                        brand: getVal('brand').toString(),
-                        // Looks for "Product Name" first, then falls back to "Model Name"
-                        name: (getVal('product name') || getVal('model')).toString(),
-                        category: getVal('category').toString(), 
-                        status: (getVal('stock status') || getVal('status')).toString(),
-                        image: (getVal('image url') || getVal('image')).toString(),
-                        // Finds your specific 'Price (INR)' column
-                        price: (getVal('price (inr)') || getVal('price')).toString() 
+                        brand: getVal('brand'),
+                        name: getVal('product name', 'model name', 'model'),
+                        category: getVal('category'), 
+                        status: getVal('stock status', 'status'),
+                        image: getVal('image url', 'image'),
+                        price: getVal('price', 'mrp', 'inr')
                     };
                 }).filter(product => {
-                    // Normalize for checking
                     const brand = product.brand.toLowerCase();
                     const name = product.name.toLowerCase();
                     const status = product.status.toLowerCase();
                     
-                    // RULE: NO APPLE / IPHONE
                     if (brand.includes('apple') || name.includes('iphone')) return false;
-                    
-                    // RULE: RELAXED Stock Filter
                     if (status.includes('out') || status.includes('sold')) return false;
-
-                    // RULE: Valid Products only (must have a name)
                     if (!name) return false;
 
                     return true;
                 });
 
-                // 5. Render
                 renderGrid('all');
 
             } catch (err) {
                 console.error('Shop Error:', err);
-                // FALLBACK UI (No white screen)
                 els.grid.innerHTML = `
                     <div class="col-span-full text-center py-10 bg-gray-50 rounded-xl border border-gray-100">
                         <i class="fa-solid fa-store text-4xl text-gray-400 mb-3"></i>
                         <h3 class="text-lg font-bold text-gray-700">Stock Display Unavailable</h3>
-                        <p class="text-gray-500 text-sm mt-1">
-                            Please visit our showroom in Laxmiganj to see available models.
-                        </p>
+                        <p class="text-gray-500 text-sm mt-1">Please visit our showroom in Laxmiganj to see available models.</p>
                     </div>
                 `;
             }
@@ -602,15 +585,13 @@
                 return;
             }
 
-            els.grid.innerHTML = ''; // Clear loader
+            els.grid.innerHTML = ''; 
 
             displayProducts.forEach(product => {
                 const displayName = product.name || 'Android Mobile';
-                
                 const card = document.createElement('div');
                 card.className = "bg-white rounded-2xl p-4 border border-gray-100 product-card flex flex-col h-full group";
                 
-                // Image Logic
                 let imageHtml = '';
                 if (product.image && product.image.startsWith('http')) {
                     imageHtml = `<img src="${product.image}" alt="${displayName}" class="absolute inset-0 w-full h-full object-cover transition duration-300 group-hover:scale-110" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'absolute inset-0 flex items-center justify-center bg-gray-100 text-gray-400\\'><i class=\\'fa-brands fa-android text-4xl\\'></i></div>'">`;
@@ -624,11 +605,11 @@
                         </div>`;
                 }
 
-                // Status Badge logic
                 let badgeHtml = '<div class="absolute top-3 left-3 bg-green-100 text-green-800 text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wide shadow-sm">In Stock</div>';
 
-                // Price Formatting Logic
-                const formattedPrice = product.price ? '₹' + parseInt(product.price.replace(/\D/g, '')).toLocaleString('en-IN') : '';
+                // BUG FIX 3: Fully robust price parsing to stop NaN errors
+                const rawPrice = product.price.replace(/\D/g, '');
+                const formattedPrice = rawPrice ? '₹' + parseInt(rawPrice).toLocaleString('en-IN') : '';
                 const priceHtml = formattedPrice 
                     ? `<div class="text-sm font-bold text-brand-600">${formattedPrice}</div>` 
                     : `<div class="text-sm font-bold text-brand-600 cursor-pointer hover:underline" onclick="document.getElementById('location').scrollIntoView({behavior: 'smooth'})">Check in Store</div>`;
@@ -656,10 +637,8 @@
             });
         }
 
-        // Filter Function
         window.filterProducts = function(category, btn) {
             renderGrid(category);
-            // Visual feedback
             const buttons = btn.parentElement.querySelectorAll('button');
             buttons.forEach(b => {
                 b.className = "px-6 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-brand-600 hover:bg-gray-50 transition";
@@ -667,7 +646,6 @@
             btn.className = "px-6 py-2 rounded-lg text-sm font-medium transition bg-brand-600 text-white shadow-sm";
         }
 
-        // Wishlist Logic
         window.addToWishlist = function(name, brand) {
             cart.push({ name, category: brand });
             updateCartUI();
@@ -699,7 +677,6 @@
             `).join('');
         }
 
-        // Dynamic WhatsApp Checkout Script
         window.checkoutToWhatsApp = function() {
             if (cart.length === 0) {
                 alert("Please add items to your wishlist first!");
@@ -718,7 +695,6 @@
             window.open(`https://wa.me/919039315811?text=${encodedMessage}`, '_blank');
         };
 
-        // Mobile Menu Toggle
         window.toggleCart = function(forceOpen = false) {
             if (!els.cartModal || !els.cartPanel) return;
 
