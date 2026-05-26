@@ -673,3 +673,74 @@
             updateCartUI();
             
             if (els.cartCount) {
+                els.cartCount.classList.add('scale-125');
+                setTimeout(() => els.cartCount.classList.remove('scale-125'), 200);
+            }
+            toggleCart(true); 
+        }
+
+        function updateCartUI() {
+            if (els.cartCount) els.cartCount.innerText = cart.length;
+            if (!els.cartItems) return;
+
+            if (cart.length === 0) {
+                els.cartItems.innerHTML = `<div class="flex flex-col items-center justify-center h-full text-gray-400"><i class="fa-regular fa-clipboard text-2xl mb-2"></i><p>List empty.</p></div>`;
+                return;
+            }
+
+            els.cartItems.innerHTML = cart.map((item, idx) => `
+                <div class="flex justify-between items-center bg-gray-50 p-3 rounded mb-2 border border-gray-100">
+                    <div>
+                        <div class="font-bold text-sm text-gray-900">${item.name}</div>
+                        <div class="text-xs text-gray-500">${item.category}</div>
+                    </div>
+                    <button onclick="cart.splice(${idx},1); updateCartUI();" class="text-red-500 text-xs hover:text-red-700 font-medium">Remove</button>
+                </div>
+            `).join('');
+        }
+
+        // Dynamic WhatsApp Checkout Script
+        window.checkoutToWhatsApp = function() {
+            if (cart.length === 0) {
+                alert("Please add items to your wishlist first!");
+                return;
+            }
+
+            let message = "Hello New Ashish Mobile Gallery! I am interested in checking the availability and final best price for these items:\n\n";
+            
+            cart.forEach((item, index) => {
+                message += `${index + 1}. ${item.brand} - ${item.name}\n`;
+            });
+            
+            message += "\nPlease let me know if they are available at the Laxmiganj store.";
+
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/919039315811?text=${encodedMessage}`, '_blank');
+        };
+
+        // Mobile Menu Toggle
+        window.toggleCart = function(forceOpen = false) {
+            if (!els.cartModal || !els.cartPanel) return;
+
+            if (forceOpen || els.cartModal.classList.contains('hidden')) {
+                els.cartModal.classList.remove('hidden');
+                setTimeout(() => els.cartPanel.classList.remove('translate-x-full'), 10);
+            } else {
+                els.cartPanel.classList.add('translate-x-full');
+                setTimeout(() => els.cartModal.classList.add('hidden'), 300);
+            }
+        };
+
+        window.toggleMobileMenu = function() {
+            if (els.mobileMenu) els.mobileMenu.classList.toggle('open');
+        };
+
+        function setupScroll() {
+            window.addEventListener('scroll', () => {
+                const nav = document.getElementById('navbar');
+                if (nav) window.scrollY > 20 ? nav.classList.add('shadow-md') : nav.classList.remove('shadow-md');
+            });
+        }
+    </script>
+</body>
+</html>
