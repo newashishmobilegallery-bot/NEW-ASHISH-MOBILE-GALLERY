@@ -4,11 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Ashish Mobile Gallery | Gwalior's Trusted Android Store</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <script>
@@ -58,17 +55,14 @@
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans antialiased">
 
-    <!-- Navbar -->
     <nav class="bg-white shadow-sm fixed w-full z-50 transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20">
-                <!-- Logo & Name (FIXED: Visible on Mobile) -->
                 <div class="flex items-center">
                     <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
                         <div class="w-8 h-8 md:w-10 md:h-10 bg-brand-600 rounded-lg flex items-center justify-center text-white text-lg md:text-xl font-bold">
                             <i class="fa-solid fa-mobile-screen"></i>
                         </div>
-                        <!-- Removed 'hidden' class, added responsive sizing -->
                         <div class="block"> 
                             <h1 class="text-lg md:text-xl font-bold text-gray-900 leading-tight">New Ashish</h1>
                             <p class="text-[10px] md:text-xs text-brand-600 font-medium tracking-wide">MOBILE GALLERY</p>
@@ -76,7 +70,6 @@
                     </div>
                 </div>
 
-                <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="#home" class="text-gray-600 hover:text-brand-600 font-medium transition">Home</a>
                     <a href="#catalogue" class="text-gray-600 hover:text-brand-600 font-medium transition">Smartphone Catalog</a>
@@ -84,14 +77,12 @@
                     <a href="#location" class="text-gray-600 hover:text-brand-600 font-medium transition">Visit Store</a>
                 </div>
 
-                <!-- Icons -->
                 <div class="flex items-center gap-3 md:gap-4">
                     <a href="tel:+918839462102" class="hidden md:flex items-center gap-2 bg-brand-50 text-brand-700 px-4 py-2 rounded-full text-sm font-semibold hover:bg-brand-100 transition shadow-sm border border-brand-200">
                         <i class="fa-solid fa-phone"></i>
                         <span>Call Store</span>
                     </a>
                     
-                    <!-- Call Icon Mobile Only -->
                     <a href="tel:+918839462102" class="md:hidden p-2 text-gray-600 hover:text-brand-600">
                         <i class="fa-solid fa-phone text-xl"></i>
                     </a>
@@ -101,7 +92,6 @@
                         <span id="cart-count" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-accent-500 rounded-full">0</span>
                     </button>
                     
-                    <!-- Mobile Menu Button -->
                     <button class="md:hidden p-2 text-gray-600 hover:text-gray-900 focus:outline-none" onclick="toggleMobileMenu()">
                         <i class="fa-solid fa-bars text-2xl"></i>
                     </button>
@@ -109,7 +99,6 @@
             </div>
         </div>
         
-        <!-- Mobile Menu (FIXED: Logic below handles class 'open') -->
         <div id="mobile-menu" class="md:hidden bg-white border-t border-gray-100 shadow-lg">
             <div class="px-4 pt-2 pb-4 space-y-1">
                 <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-gray-50" onclick="toggleMobileMenu()">Home</a>
@@ -120,7 +109,6 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section id="home" class="pt-28 pb-16 bg-gradient-to-br from-white via-blue-50 to-indigo-50 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -143,7 +131,6 @@
                         </a>
                     </div>
                     
-                    <!-- Trust Badges -->
                     <div class="mt-10 flex flex-wrap items-center gap-6 text-sm text-gray-500 font-medium">
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-shield-halved text-green-500"></i> 20+ Years Trust
@@ -157,7 +144,6 @@
                     </div>
                 </div>
                 
-                <!-- Hero Visual -->
                 <div class="relative hidden lg:block">
                     <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-brand-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
                     <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 bg-accent-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
@@ -175,7 +161,6 @@
         </div>
     </section>
 
-    <!-- Finance / EMI Section -->
     <section class="bg-white border-y border-gray-100 py-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
@@ -213,7 +198,6 @@
         </div>
     </section>
 
-    <!-- Catalogue Section -->
     <section id="catalogue" class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-8">
@@ -221,7 +205,6 @@
                 <p class="text-gray-600">Check out the latest models available. Visit our shop in Laxmiganj for the final best price and offers.</p>
             </div>
 
-            <!-- "How to Buy" Section -->
             <div class="max-w-4xl mx-auto mb-10 bg-white border border-brand-200 rounded-xl shadow-sm p-6 flex flex-col md:flex-row items-center justify-between gap-4">
                 <div>
                     <h3 class="font-bold text-gray-900 flex items-center gap-2">
@@ -245,7 +228,6 @@
                 </div>
             </div>
 
-            <!-- Categories -->
             <div class="flex justify-center mb-10 overflow-x-auto no-scrollbar pb-2">
                 <div class="bg-white p-1 rounded-xl shadow-sm inline-flex border border-gray-200">
                     <button class="px-6 py-2 rounded-lg text-sm font-medium transition bg-brand-600 text-white shadow-sm" onclick="filterProducts('all', this)">All</button>
@@ -256,10 +238,8 @@
                 </div>
             </div>
 
-            <!-- Product Grid -->
             <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Products injected by JS -->
-            </div>
+                </div>
             
             <div class="mt-12 text-center">
                 <a href="#location" class="inline-block border-b-2 border-brand-600 text-brand-700 font-semibold pb-1 hover:text-brand-800">
@@ -269,11 +249,9 @@
         </div>
     </section>
 
-    <!-- Repair Services -->
     <section id="services" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <!-- Content -->
                 <div class="order-2 lg:order-1">
                     <h2 class="text-3xl font-bold text-gray-900 mb-6">Expert Mobile Repair Center</h2>
                     <p class="text-gray-600 mb-8">
@@ -281,7 +259,6 @@
                     </p>
                     
                     <div class="space-y-6">
-                        <!-- Service 1 -->
                         <div class="flex items-start">
                             <div class="flex-shrink-0">
                                 <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-blue-50 text-brand-600">
@@ -294,7 +271,6 @@
                             </div>
                         </div>
 
-                        <!-- Service 2 -->
                         <div class="flex items-start">
                             <div class="flex-shrink-0">
                                 <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-orange-50 text-orange-600">
@@ -307,7 +283,6 @@
                             </div>
                         </div>
 
-                        <!-- Service 3 -->
                         <div class="flex items-start">
                             <div class="flex-shrink-0">
                                 <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-green-50 text-green-600">
@@ -320,7 +295,6 @@
                             </div>
                         </div>
 
-                         <!-- Service 4 -->
                          <div class="flex items-start">
                             <div class="flex-shrink-0">
                                 <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-gray-100 text-gray-600">
@@ -341,7 +315,6 @@
                     </div>
                 </div>
 
-                <!-- Visual -->
                 <div class="order-1 lg:order-2 bg-gray-100 rounded-2xl p-8 relative min-h-[400px] flex items-center justify-center">
                      <div class="absolute inset-0 bg-gradient-to-br from-brand-50 to-white rounded-2xl"></div>
                      <div class="relative z-10 text-center">
@@ -361,7 +334,6 @@
         </div>
     </section>
 
-    <!-- Location & CTA -->
     <section id="location" class="py-20 bg-brand-900 text-white relative overflow-hidden">
         <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -370,7 +342,6 @@
                     <h2 class="text-3xl font-bold mb-6">Visit Our Showroom</h2>
                     <p class="text-brand-200 mb-4 text-lg">We are a physical retail store. Please visit us for final pricing, financing, and purchases.</p>
                     
-                    <!-- Experience / Trust Text -->
                     <div class="mb-8 p-4 bg-white/5 rounded-lg border-l-4 border-accent-500">
                         <p class="text-white font-medium text-base">
                             <i class="fa-solid fa-store text-accent-500 mr-2"></i>
@@ -403,7 +374,6 @@
                     </div>
                 </div>
                 
-                <!-- Map Container -->
                 <div class="bg-white/10 backdrop-blur-md rounded-2xl p-2 border border-white/20 h-80 relative overflow-hidden shadow-2xl">
                     <iframe 
                         src="https://maps.google.com/maps?q=643Q+2C9,+AH47,+near+Nehru+Petrol+Pump,+Gol+Pahariya,+Laxmi+Ganj,+Gwalior&t=&z=15&ie=UTF8&iwloc=&output=embed" 
@@ -423,7 +393,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="bg-gray-900 text-gray-300 pt-16 pb-8 border-t border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
@@ -471,13 +440,12 @@
             </div>
             
             <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-sm text-gray-500">&copy; 2024 New Ashish Mobile Gallery. All rights reserved.</p>
+                <p class="text-sm text-gray-500">© 2024 New Ashish Mobile Gallery. All rights reserved.</p>
                 <p class="text-sm text-gray-600 mt-2 md:mt-0">Mon – Sun: 10:30 AM – 9:30 PM</p>
             </div>
         </div>
     </footer>
 
-    <!-- Wishlist / Inquiry Modal -->
     <div id="cart-modal" class="fixed inset-0 z-[60] hidden">
         <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="toggleCart()"></div>
         <div class="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl p-6 transform transition-transform duration-300 translate-x-full" id="cart-panel">
@@ -489,7 +457,6 @@
             </div>
             
             <div id="cart-items" class="flex-1 overflow-y-auto h-[60vh] space-y-4">
-                <!-- Empty State -->
                 <div class="flex flex-col items-center justify-center h-full text-gray-400">
                     <i class="fa-regular fa-clipboard text-4xl mb-4"></i>
                     <p>No items selected.</p>
@@ -502,16 +469,15 @@
                     <i class="fa-solid fa-store mr-1"></i> <strong>Note:</strong> We do not sell online. This list helps you enquire about stock availability.
                 </p>
                 
-                <button onclick="window.open('https://wa.me/919039315811?text=Hi%2C%20I%20am%20interested%20in%20products%20from%20New%20Ashish%20Mobile%20Gallery', '_blank')" class="w-full bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600 transition">
+                <button onclick="checkoutToWhatsApp()" class="w-full bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600 transition">
                     <i class="fa-brands fa-whatsapp mr-2"></i> Check Stock on WhatsApp
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Google Sheet Integration & Main Logic -->
     <script>
-        // Config: Your Google Apps Script Web App URL (Provided)
+        // Config: Your Google Apps Script Web App URL
         const API_URL = 'https://script.google.com/macros/s/AKfycbw1HL3q0u-dFGrxF71ONDgUOpv4Xs2G5G53cEVmSHSDlOKNMjzSr8wISOeiquN_MFg0/exec';
         
         // Global State
@@ -563,42 +529,34 @@
                     rawData = json.data;
                 }
 
-                console.log("Received Products:", rawData); // Debugging
-
-                // 4. Map & Filter Data
+                // 4. Map & Filter Data - UPDATED to perfectly match your Sheet headers via substring search
                 allProducts = rawData.map(item => {
-                    // Robust key access: Try exact name, then lowercase, then fuzzy search
-                    const getVal = (targetKey) => {
-                        // 1. Direct match
-                        if (item[targetKey]) return item[targetKey];
-                        // 2. Lowercase match
-                        if (item[targetKey.toLowerCase()]) return item[targetKey.toLowerCase()];
-                        // 3. Fuzzy search (ignore spaces/case)
-                        const found = Object.keys(item).find(k => k.trim().toLowerCase() === targetKey.toLowerCase());
-                        return found ? item[found] : '';
+                    // This function searches keys dynamically so it never misses your columns
+                    const getVal = (searchString) => {
+                        const foundKey = Object.keys(item).find(k => k.toLowerCase().includes(searchString.toLowerCase()));
+                        return foundKey ? item[foundKey] : '';
                     };
 
                     return {
-                        brand: getVal('Brand').toString(),
-                        name: getVal('Model Name').toString(),
-                        // Fallback for name if header matches "Product Name" instead
-                        nameAlt: getVal('Product Name').toString(),
-                        category: getVal('Category').toString(), 
-                        status: getVal('Status').toString(),
-                        image: getVal('Image URL').toString()
+                        brand: getVal('brand').toString(),
+                        // Looks for "Product Name" first, then falls back to "Model Name"
+                        name: (getVal('product name') || getVal('model')).toString(),
+                        category: getVal('category').toString(), 
+                        status: (getVal('stock status') || getVal('status')).toString(),
+                        image: (getVal('image url') || getVal('image')).toString(),
+                        // Finds your specific 'Price (INR)' column
+                        price: (getVal('price (inr)') || getVal('price')).toString() 
                     };
                 }).filter(product => {
                     // Normalize for checking
                     const brand = product.brand.toLowerCase();
-                    const name = (product.name || product.nameAlt).toLowerCase();
+                    const name = product.name.toLowerCase();
                     const status = product.status.toLowerCase();
                     
                     // RULE: NO APPLE / IPHONE
                     if (brand.includes('apple') || name.includes('iphone')) return false;
                     
                     // RULE: RELAXED Stock Filter
-                    // Hide ONLY if explicitly "out" or "sold"
-                    // Show if "in stock", "available", or EMPTY/Undefined
                     if (status.includes('out') || status.includes('sold')) return false;
 
                     // RULE: Valid Products only (must have a name)
@@ -606,8 +564,6 @@
 
                     return true;
                 });
-
-                console.log("Filtered Products:", allProducts); // Debugging
 
                 // 5. Render
                 renderGrid('all');
@@ -649,7 +605,7 @@
             els.grid.innerHTML = ''; // Clear loader
 
             displayProducts.forEach(product => {
-                const displayName = product.name || product.nameAlt || 'Android Mobile';
+                const displayName = product.name || 'Android Mobile';
                 
                 const card = document.createElement('div');
                 card.className = "bg-white rounded-2xl p-4 border border-gray-100 product-card flex flex-col h-full group";
@@ -669,11 +625,13 @@
                 }
 
                 // Status Badge logic
-                let badgeHtml = '';
-                // Default to "In Stock" visually unless status is weird, but we filtered weird ones out.
-                // Or check explicitly if you prefer:
-                // if(product.status && product.status.toLowerCase().includes('in stock'))
-                badgeHtml = '<div class="absolute top-3 left-3 bg-green-100 text-green-800 text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wide shadow-sm">In Stock</div>';
+                let badgeHtml = '<div class="absolute top-3 left-3 bg-green-100 text-green-800 text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wide shadow-sm">In Stock</div>';
+
+                // Price Formatting Logic
+                const formattedPrice = product.price ? '₹' + parseInt(product.price.replace(/\D/g, '')).toLocaleString('en-IN') : '';
+                const priceHtml = formattedPrice 
+                    ? `<div class="text-sm font-bold text-brand-600">${formattedPrice}</div>` 
+                    : `<div class="text-sm font-bold text-brand-600 cursor-pointer hover:underline" onclick="document.getElementById('location').scrollIntoView({behavior: 'smooth'})">Check in Store</div>`;
 
                 card.innerHTML = `
                     <div class="relative w-full pt-[100%] rounded-xl bg-gray-50 mb-4 overflow-hidden">
@@ -687,9 +645,7 @@
                     <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-50">
                         <div>
                             <span class="text-xs text-gray-400 block">Best Price</span>
-                            <div class="text-sm font-bold text-brand-600 cursor-pointer hover:underline" onclick="document.getElementById('location').scrollIntoView({behavior: 'smooth'})">
-                                Check in Store
-                            </div>
+                            ${priceHtml}
                         </div>
                         <button onclick="addToWishlist('${displayName.replace(/'/g, "\\'")}', '${product.brand}')" class="bg-gray-900 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-brand-600 transition shadow-lg" title="Add to Interest List">
                             <i class="fa-solid fa-plus"></i>
@@ -717,56 +673,3 @@
             updateCartUI();
             
             if (els.cartCount) {
-                els.cartCount.classList.add('scale-125');
-                setTimeout(() => els.cartCount.classList.remove('scale-125'), 200);
-            }
-            toggleCart(true); 
-        }
-
-        function updateCartUI() {
-            if (els.cartCount) els.cartCount.innerText = cart.length;
-            if (!els.cartItems) return;
-
-            if (cart.length === 0) {
-                els.cartItems.innerHTML = `<div class="flex flex-col items-center justify-center h-full text-gray-400"><i class="fa-regular fa-clipboard text-2xl mb-2"></i><p>List empty.</p></div>`;
-                return;
-            }
-
-            els.cartItems.innerHTML = cart.map((item, idx) => `
-                <div class="flex justify-between items-center bg-gray-50 p-3 rounded mb-2 border border-gray-100">
-                    <div>
-                        <div class="font-bold text-sm text-gray-900">${item.name}</div>
-                        <div class="text-xs text-gray-500">${item.category}</div>
-                    </div>
-                    <button onclick="cart.splice(${idx},1); updateCartUI();" class="text-red-500 text-xs hover:text-red-700 font-medium">Remove</button>
-                </div>
-            `).join('');
-        }
-
-        // FIXED: Toggle Function correctly toggles 'open' class
-        window.toggleCart = function(forceOpen = false) {
-            if (!els.cartModal || !els.cartPanel) return;
-
-            if (forceOpen || els.cartModal.classList.contains('hidden')) {
-                els.cartModal.classList.remove('hidden');
-                setTimeout(() => els.cartPanel.classList.remove('translate-x-full'), 10);
-            } else {
-                els.cartPanel.classList.add('translate-x-full');
-                setTimeout(() => els.cartModal.classList.add('hidden'), 300);
-            }
-        };
-
-        // FIXED: Toggle Function correctly toggles 'open' class
-        window.toggleMobileMenu = function() {
-            if (els.mobileMenu) els.mobileMenu.classList.toggle('open');
-        };
-
-        function setupScroll() {
-            window.addEventListener('scroll', () => {
-                const nav = document.getElementById('navbar');
-                if (nav) window.scrollY > 20 ? nav.classList.add('shadow-md') : nav.classList.remove('shadow-md');
-            });
-        }
-    </script>
-</body>
-</html>
